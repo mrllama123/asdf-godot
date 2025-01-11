@@ -39,7 +39,8 @@ list_github_tags() {
 
 list_all_versions() {
 
-	echo $plugin_dir
+	test = "$(dirname "${BASH_SOURCE[0]}")"
+	echo "$test
 	list_github_tags
 }
 
