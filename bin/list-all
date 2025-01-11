@@ -13,5 +13,6 @@ if [ "$toolname" == "redot" ]; then
     repo_name=$GH_REPO_REDOT
 else
     repo_name=$GH_REPO_GODOT
+fi
 
 list_all_versions "$repo_name" | sort_versions | xargs echo
