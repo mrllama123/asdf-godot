@@ -2,7 +2,9 @@
 
 set -euo pipefail
 
-GH_REPO='https://github.com/godotengine/godot-builds'
+GH_REPO=''
+GH_REPO_GODOT='https://github.com/godotengine/godot-builds'
+GH_REPO_REDOT='https://github.com/Redot-Engine/redot-engine'
 TOOL_NAME='godot'
 TOOL_TEST="${TOOL_NAME} --help"
 
@@ -38,10 +40,7 @@ list_github_tags() {
 }
 
 list_all_versions() {
-
-	test=$(basename "$($BASH_SOURCE[0])")
-	echo "$test"
-	#list_github_tags
+	list_github_tags
 }
 
 download_release() {
