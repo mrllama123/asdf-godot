@@ -40,6 +40,7 @@ list_github_tags() {
 }
 
 list_all_versions() {
+	echo "$ASDF_PLUGIN_PATH"
 	list_github_tags
 }
 
