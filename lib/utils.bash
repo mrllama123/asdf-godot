@@ -16,14 +16,26 @@ fi
 
 get_release_file_name() {
 	local version="$1"
+	local tool_name="$2"
 
 	platform=$(uname | tr '[:upper:]' '[:lower:]')
+	arch=$(uname -m)
+	
+	if [ "$tool_name" == "redot" ]; then
+		redot_version=$(echo "$version" | sed 's/redot-\(.*\)/\1/')
+		if [ "${platform}" == 'darwin' ]; then
+			echo "Redot_v${redot_version}_macos"
+			exit 0
+		fi
+		echo "Redot_v${version}_${platform}.${arch}"
+		exit 0
+	fi
+	
 	if [ "${platform}" == 'darwin' ]; then
 		echo "Godot_v${version}_macos.universal"
 		exit 0
 	fi
 
-	arch=$(uname -m)
 
 	echo "Godot_v${version}_${platform}.${arch}"
 }
@@ -44,7 +56,7 @@ download_release() {
 	version="$3"
 	filename="$4"
 
-	url="$repo/releases/download/${version}/$(get_release_file_name "${version}").zip"
+	url="$repo/releases/download/${version}/$(get_release_file_name "${tool_name}" "${version}").zip"
 
 	echo "* Downloading $tool_name release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
