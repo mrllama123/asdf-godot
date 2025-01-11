@@ -2,11 +2,9 @@
 
 set -euo pipefail
 
-# GH_REPO='https://github.com/godotengine/godot-builds'
 GH_REPO_GODOT='https://github.com/godotengine/godot-builds'
 GH_REPO_REDOT='https://github.com/Redot-Engine/redot-engine'
-# TOOL_NAME='godot'
-# TOOL_TEST="${TOOL_NAME} --help"
+
 
 curl_opts=(-fsSL)
 
@@ -14,20 +12,27 @@ if [ -n "${GITHUB_API_TOKEN:-}" ]; then
 	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
 fi
 
+get_redot_release_name() {
+	redot_version=$(echo "$version" | sed 's/redot-\(.*\)/\1/')
+	if [ "${platform}" == 'darwin' ]; then
+		echo "Redot_v${redot_version}_macos"
+		exit 0
+	fi
+	echo "Redot_v${version}_${platform}.${arch}"
+}
+
 get_release_file_name() {
 	local version="$1"
 	local tool_name="$2"
 
 	platform=$(uname | tr '[:upper:]' '[:lower:]')
 	arch=$(uname -m)
+	mono=
+	if [ -v "$MONO_SUPPORT" ]; then
+		mono="mono_"
 	
 	if [ "$tool_name" == "redot" ]; then
-		redot_version=$(echo "$version" | sed 's/redot-\(.*\)/\1/')
-		if [ "${platform}" == 'darwin' ]; then
-			echo "Redot_v${redot_version}_macos"
-			exit 0
-		fi
-		echo "Redot_v${version}_${platform}.${arch}"
+		get_redot_release_name()
 		exit 0
 	fi
 	
