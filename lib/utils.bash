@@ -39,7 +39,7 @@ list_github_tags() {
 
 list_all_versions() {
 
-	test = $(dirname "$(pwd)")
+	test=$(dirname "$(pwd)")
 	echo "$test"
 	list_github_tags
 }
