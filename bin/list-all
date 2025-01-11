@@ -9,4 +9,9 @@ toolname="$(basename $plugin_dir)"
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
-list_all_versions | sort_versions | xargs echo
+if [ "$toolname" == "redot" ]; then
+    repo_name=$GH_REPO_REDOT
+else
+    repo_name=$GH_REPO_GODOT
+
+list_all_versions "$repo_name" | sort_versions | xargs echo

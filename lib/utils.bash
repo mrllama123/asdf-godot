@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-GH_REPO='https://github.com/godotengine/godot-builds'
+# GH_REPO='https://github.com/godotengine/godot-builds'
 GH_REPO_GODOT='https://github.com/godotengine/godot-builds'
 GH_REPO_REDOT='https://github.com/Redot-Engine/redot-engine'
 TOOL_NAME='godot'
@@ -40,8 +40,10 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	echo "$ASDF_PLUGIN_PATH"
-	list_github_tags
+	local repo_name="$1"
+	git ls-remote --tags --refs "$repo_name" |
+		grep -o 'refs/tags/.*' | cut -d/ -f3- |
+		sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
 }
 
 download_release() {
