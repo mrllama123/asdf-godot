@@ -9,6 +9,7 @@ toolname="$(basename $plugin_dir)"
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
+repo_name=
 if [ "$toolname" == "redot" ]; then
     repo_name=$GH_REPO_REDOT
 else
