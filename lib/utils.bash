@@ -2,9 +2,11 @@
 
 set -euo pipefail
 
-GH_REPO='https://github.com/godotengine/godot-builds'
-TOOL_NAME='godot'
-TOOL_TEST="${TOOL_NAME} --help"
+# GH_REPO='https://github.com/godotengine/godot-builds'
+GH_REPO_GODOT='https://github.com/godotengine/godot-builds'
+GH_REPO_REDOT='https://github.com/Redot-Engine/redot-engine'
+# TOOL_NAME='godot'
+# TOOL_TEST="${TOOL_NAME} --help"
 
 curl_opts=(-fsSL)
 
@@ -42,13 +44,14 @@ list_all_versions() {
 }
 
 download_release() {
-	local version filename url
-	version="$1"
-	filename="$2"
+	local toolname version filename url
+	toolname="$1"
+	version="$2"
+	filename="$3"
 
 	url="$GH_REPO/releases/download/${version}/$(get_release_file_name "${version}").zip"
 
-	echo "* Downloading $TOOL_NAME release $version..."
+	echo "* Downloading $toolname release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
