@@ -21,7 +21,7 @@ mkdir -p "$ASDF_DOWNLOAD_PATH"
 release_file="$ASDF_DOWNLOAD_PATH/$toolname-$ASDF_INSTALL_VERSION.zip"
 
 # Download tar.gz file to the download directory
-download_release "$toolname" "$ASDF_INSTALL_VERSION" "$release_file"
+download_release "$toolname" "$repo_name" "$ASDF_INSTALL_VERSION" "$release_file"
 
 #  Extract contents of tar.gz file into the download directory
 unzip "$release_file" -d "$ASDF_DOWNLOAD_PATH" || fail "Could not extract $release_file"
