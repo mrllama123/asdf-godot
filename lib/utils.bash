@@ -38,7 +38,8 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	echo "$(pwd)"
+
+	echo $plugin_dir
 	list_github_tags
 }
 
