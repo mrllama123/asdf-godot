@@ -38,7 +38,7 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	local toolname="$1"
+	local toolname="$0"
 	echo "$toolname"
 	list_github_tags
 }
