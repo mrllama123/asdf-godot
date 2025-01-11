@@ -40,7 +40,7 @@ list_github_tags() {
 list_all_versions() {
 
 	test = "$(dirname "${BASH_SOURCE[0]}")"
-	echo "$test
+	echo "$test"
 	list_github_tags
 }
 
