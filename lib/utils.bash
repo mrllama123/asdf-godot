@@ -56,6 +56,7 @@ install_version() {
 	local version="$3"
 	local install_path="${4%/bin}/bin"
 
+	echo "$install_type"
 	if [ "$install_type" != "version" ]; then
 		fail "asdf-$tool_name supports release installs only"
 	fi
@@ -82,7 +83,7 @@ install_version() {
 
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
 
-		echo "$TOOL_NAME $version installation was successful!"
+		echo "$tool_name $version installation was successful!"
 	) || (
 		rm -rf "$install_path"
 		fail "An error occurred while installing $tool_name $version."
