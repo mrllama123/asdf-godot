@@ -38,7 +38,7 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	echo "$(dirname $(pwd))"
+	echo "$(pwd)"
 	list_github_tags
 }
 
