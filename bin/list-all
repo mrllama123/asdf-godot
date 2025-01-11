@@ -8,5 +8,5 @@ toolname="$(basename $plugin_dir)"
 
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
-echo "$ASDF_DOWNLOAD_PATH"
+
 list_all_versions | sort_versions | xargs echo

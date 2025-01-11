@@ -40,6 +40,7 @@ list_github_tags() {
 }
 
 list_all_versions() {
+	echo "$(pwd)"
 	list_github_tags
 }
 
