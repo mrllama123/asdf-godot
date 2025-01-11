@@ -10,4 +10,11 @@ source "${plugin_dir}/lib/utils.bash"
 local toolname="$0"
 echo "$toolname"
 
-list_all_versions | sort_versions | xargs echo
+repo_name=
+if [ "$toolname" == "redot" ]; then
+    repo_name=$GH_REPO_REDOT
+else
+    repo_name=$GH_REPO_GODOT
+fi
+
+list_all_versions "$repo_name" | sort_versions | xargs echo
