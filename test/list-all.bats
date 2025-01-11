@@ -13,11 +13,13 @@ setup() {
 
 @test "list all versions godot" {
     run asdf list-all godot
-    
-    echo "$output" 
+    [ "$status" -eq 0 ]
+    # match format <version i.e 4.3 or 4.2.2>-<type of release i.e stable, dev>
+    [[ "$output" =~ [0-9]\.[0-9](\.[0-9])?\-[a-zA-Z]+ ]]
 }
 
 @test "list all versions redot" {
     run asdf list-all redot
-    echo "$output" >&3
+    # match format <godot or redot>-<version i.e 4.3 or 4.2.2>-<type of release i.e stable, dev>
+    [[ "$output" =~ (godot|redot)+\-[0-9]\.[0-9](\.[0-9])?\-[a-zA-Z]+ ]]
 }
