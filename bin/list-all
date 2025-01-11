@@ -7,5 +7,5 @@ plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
-echo "$2"
+
 list_all_versions | sort_versions | xargs echo
