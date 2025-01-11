@@ -38,7 +38,7 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	echo "$(basename $BASH_SOURCE[0])"
+	echo "$(basename pwd)"
 	list_github_tags
 }
 
