@@ -33,35 +33,31 @@ sort_versions() {
 		LC_ALL=C sort -t. -k 1,1 -k 2,2n -k 3,3n -k 4,4n -k 5,5n | awk '{print $2}'
 }
 
-list_github_tags() {
-	git ls-remote --tags --refs "$GH_REPO" |
-		grep -o 'refs/tags/.*' | cut -d/ -f3- |
-		sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
-}
-
 list_all_versions() {
 	list_github_tags
 }
 
 download_release() {
-	local toolname version filename url
-	toolname="$1"
-	version="$2"
-	filename="$3"
+	local tool_name repo version filename url
+	tool_name="$1"
+	repo="$2"
+	version="$3"
+	filename="$4"
 
-	url="$GH_REPO/releases/download/${version}/$(get_release_file_name "${version}").zip"
+	url="$repo/releases/download/${version}/$(get_release_file_name "${version}").zip"
 
-	echo "* Downloading $toolname release $version..."
+	echo "* Downloading $tool_name release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
 install_version() {
-	local install_type="$1"
-	local version="$2"
-	local install_path="${3%/bin}/bin"
+	local tool_name="$1"
+	local install_type="$2"
+	local version="$3"
+	local install_path="${4%/bin}/bin"
 
 	if [ "$install_type" != "version" ]; then
-		fail "asdf-$TOOL_NAME supports release installs only"
+		fail "asdf-$tool_name supports release installs only"
 	fi
 
 	(
@@ -69,10 +65,19 @@ install_version() {
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
 		local tool_cmd
-		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
+		tool_cmd="$(echo "${tool_name} --help" | cut -d' ' -f1)"
 		platform=$(uname | tr '[:upper:]' '[:lower:]')
+
+		app_path=
+
+		if [ "$tool_name" == "redot" ]; then
+			app_path="${install_path}/Redot.app/Contents/MacOS/Redot"
+		else
+			app_path="${install_path}/Godot.app/Contents/MacOS/Godot"
+		fi
+
 		if [ "${platform}" == "darwin" ]; then
-			ln -s "${install_path}/Redot.app/Contents/MacOS/Redot" "$install_path/${tool_cmd}"
+			ln -s "$app_path" "$install_path/${tool_cmd}"
 		fi
 
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
@@ -80,6 +85,6 @@ install_version() {
 		echo "$TOOL_NAME $version installation was successful!"
 	) || (
 		rm -rf "$install_path"
-		fail "An error occurred while installing $TOOL_NAME $version."
+		fail "An error occurred while installing $tool_name $version."
 	)
 }
