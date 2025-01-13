@@ -4,7 +4,7 @@ set -euo pipefail
 
 GH_REPO_GODOT='https://github.com/godotengine/godot-builds'
 GH_REPO_REDOT='https://github.com/Redot-Engine/redot-engine'
-GODOT_INSTALL_MONO='0' #HACK: for some reason this bash script doesn't unbound vars  
+ASDF_GODOT_INSTALL_MONO='0' #HACK: for some reason this bash script doesn't like unbound vars  
 
 
 curl_opts=(-fsSL)
@@ -34,7 +34,7 @@ get_release_file_name() {
 	platform=$(uname | tr '[:upper:]' '[:lower:]')
 	arch=$(uname -m)
 	mono=
-	if [[ "$GODOT_INSTALL_MONO" != "0" ]];  then
+	if [[ "$ASDF_GODOT_INSTALL_MONO" != "0" ]];  then
 		mono="mono_"
 	
 	if [ "$tool_name" == "redot" ]; then
@@ -93,7 +93,7 @@ install_version() {
 		platform=$(uname | tr '[:upper:]' '[:lower:]')
 
 		mono=
-		if [[ "$GODOT_INSTALL_MONO" != "0" ]]; then
+		if [[ "$ASDF_GODOT_INSTALL_MONO" != "0" ]]; then
 			mono="_mono"
 		fi 
 
