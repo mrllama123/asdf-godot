@@ -56,7 +56,8 @@ sort_versions() {
 }
 
 list_all_versions() {
-	git ls-remote --tags --refs "$GH_REPO" |
+	local repo="$1"
+	git ls-remote --tags --refs "$repo" |
 		grep -o 'refs/tags/.*' | cut -d/ -f3- |
 		sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
 }
