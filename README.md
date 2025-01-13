@@ -1,6 +1,6 @@
 # asdf-godot
 
-[godot](https://godotengine.org) and redot [redot](https://www.redotengine.org/) plugin for the [asdf version manager](https://asdf-vm.com).
+[godot](https://godotengine.org) and redot [redot](https://www.redotengine.org/) plugin based from [ez-connect/asdf-godot](https://github.com/ez-connect/asdf-godot) repo for the [asdf version manager](https://asdf-vm.com).
 Credit also to [asdf-hashicorp](https://github.com/asdf-community/asdf-hashicorp) plugin for inspiration for how to do multiple plugins in one repo
 ## Contents
 
@@ -11,6 +11,7 @@ Credit also to [asdf-hashicorp](https://github.com/asdf-community/asdf-hashicorp
     - [Plugin](#plugin)
     - [Godot](#godot)
     - [Redot](#redot)
+    - [Dotnet/Mono support](#dotnetmono-support)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -57,6 +58,21 @@ asdf global redot redot-4.3-stable
 # Now redot commands are available
 redot --help
 ```
+
+### Dotnet/Mono support
+
+You can also install mono version for redot or godot vai adding env var: `ASDF_GODOT_INSTALL_MONO=1` i.e:
+
+```sh
+#godot
+ASDF_GODOT_INSTALL_MONO=1 asdf install godot 4.3-stable
+```
+
+```sh
+#redot
+ASDF_GODOT_INSTALL_MONO=1 asdf install redot redot-4.3-stable
+```
+
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to
 install & manage versions.
