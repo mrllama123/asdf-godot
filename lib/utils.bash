@@ -36,6 +36,7 @@ get_release_file_name() {
 	mono=
 	if [[ "$ASDF_GODOT_INSTALL_MONO" != "0" ]];  then
 		mono="mono_"
+	fi 
 	
 	if [ "$tool_name" == "redot" ]; then
 		get_redot_release_name "$version" "$platform" "$arch" "$mono"
