@@ -14,8 +14,17 @@ setup() {
 @test "can install godot 4.3" {
     run asdf install godot 4.3-stable
     [ "$status" -eq 0 ]
+    [[ "$output" != *"fail: command not found"* ]] # mac os doesn't have fail installed
     [[ "$output" == *"godot 4.3-stable installation was successful!"* ]]
 }
+
+@test "can install godot mono 4.3" {
+    INSTALL_MONO=1 run asdf install godot 4.3-stable
+    [ "$status" -eq 0 ]
+    [[ "$output" != *"fail: command not found"* ]] # mac os doesn't have fail installed
+    [[ "$output" == *"godot 4.3-stable installation was successful!"* ]]
+}
+
 
 @test "can install godot latest" {
     # fails now but should look into once i have other parts done
@@ -31,8 +40,17 @@ setup() {
 @test "can install redot 4.3" {
     run asdf install redot redot-4.3-stable
     [ "$status" -eq 0 ]
+    [[ "$output" != *"fail: command not found"* ]] # mac os doesn't have fail installed
     [[ "$output" == *"redot redot-4.3-stable installation was successful!"* ]]
 }
+
+@test "can install redot mono 4.3" {
+    INSTALL_MONO=1 run asdf install redot redot-4.3-stable
+    [ "$status" -eq 0 ]
+    [[ "$output" != *"fail: command not found"* ]] # mac os doesn't have fail installed
+    [[ "$output" == *"redot redot-4.3-stable installation was successful!"* ]]
+}
+
 
 @test "can install redot latest" {
     # fails now but should look into once i have other parts done
