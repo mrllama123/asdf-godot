@@ -4,11 +4,11 @@ set -euo pipefail
 
 current_script_path=${BASH_SOURCE[0]}
 plugin_dir=$(dirname "$(dirname "$current_script_path")")
+toolname="$(basename $plugin_dir)"
 
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
-local toolname="$0"
-echo "$toolname"
+
 
 repo_name=
 if [ "$toolname" == "redot" ]; then
