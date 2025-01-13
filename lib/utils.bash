@@ -69,7 +69,7 @@ download_release() {
 	filename="$4"
 
 	url="$repo/releases/download/${version}/$(get_release_file_name "${tool_name}" "${version}").zip"
-
+	echo "$url"
 	echo "* Downloading $tool_name release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
