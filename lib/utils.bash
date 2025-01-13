@@ -4,8 +4,7 @@ set -euo pipefail
 
 GH_REPO_GODOT='https://github.com/godotengine/godot-builds'
 GH_REPO_REDOT='https://github.com/Redot-Engine/redot-engine'
-ASDF_GODOT_INSTALL_MONO='0' #HACK: for some reason this bash script doesn't like unbound vars  
-
+ASDF_GODOT_INSTALL_MONO='0' #HACK: for some reason this bash script doesn't like unbound vars
 
 curl_opts=(-fsSL)
 
@@ -34,20 +33,19 @@ get_release_file_name() {
 	platform=$(uname | tr '[:upper:]' '[:lower:]')
 	arch=$(uname -m)
 	mono=
-	if [[ "$ASDF_GODOT_INSTALL_MONO" != "0" ]];  then
+	if [[ "$ASDF_GODOT_INSTALL_MONO" != "0" ]]; then
 		mono="mono_"
-	fi 
-	
+	fi
+
 	if [ "$tool_name" == "redot" ]; then
 		get_redot_release_name "$version" "$platform" "$arch" "$mono"
 		exit 0
 	fi
-	
+
 	if [ "${platform}" == 'darwin' ]; then
 		echo "Godot_v${version}_${mono}macos.universal"
 		exit 0
 	fi
-
 
 	echo "Godot_v${version}_${mono}${platform}.${arch}"
 }
@@ -58,7 +56,9 @@ sort_versions() {
 }
 
 list_all_versions() {
-	list_github_tags
+	git ls-remote --tags --refs "$GH_REPO" |
+		grep -o 'refs/tags/.*' | cut -d/ -f3- |
+		sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
 }
 
 download_release() {
@@ -96,7 +96,7 @@ install_version() {
 		mono=
 		if [[ "$ASDF_GODOT_INSTALL_MONO" != "0" ]]; then
 			mono="_mono"
-		fi 
+		fi
 
 		app_path=
 
