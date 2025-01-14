@@ -57,9 +57,15 @@ sort_versions() {
 
 list_all_versions() {
 	local repo="$1"
+	local tool_name="$2"
+
+	sed_command='s/^v//; /2024101114/d'
+	if [[ "$tool_name" == "redot" ]]; then 
+		sed_command='s/^v//; /godot/d; /2024101114/d'
+	fi
 	git ls-remote --tags --refs "$repo" |
 		grep -o 'refs/tags/.*' | cut -d/ -f3- |
-		sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
+		sed "$sed_command" # NOTE: You might want to adapt this sed to remove non-version strings from tags
 }
 
 download_release() {

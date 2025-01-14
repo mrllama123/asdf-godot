@@ -17,4 +17,4 @@ else
     repo_name=$GH_REPO_GODOT
 fi
 
-list_all_versions "$repo_name" | sort_versions | xargs echo
+list_all_versions "$repo_name" "$toolname" | sort_versions | xargs echo
