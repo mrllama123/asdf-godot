@@ -11,16 +11,18 @@ setup() {
     asdf plugin-add redot "${ASDF_GODOT}"
 }
 
-@test "list all versions godot" {
+@test "latest stable godot" {
     run asdf list-all godot
     [ "$status" -eq 0 ]
     # match format <version i.e 4.3 or 4.2.2>-<type of release i.e stable, dev>
     [[ "$output" =~ [0-9]\.[0-9](\.[0-9])?\-[a-zA-Z]+ ]]
 }
 
-@test "list all versions redot" {
+@test "latest stable redot" {
     run asdf list-all redot
     [ "$status" -eq 0 ]
     # match format <godot or redot>-<version i.e 4.3 or 4.2.2>-<type of release i.e stable, dev>
     [[ "$output" =~ (godot|redot)+\-[0-9]\.[0-9](\.[0-9])?\-[a-zA-Z]+ ]]
 }
+
+
