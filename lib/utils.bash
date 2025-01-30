@@ -126,7 +126,15 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
+			cp -r "$ASDF_DOWNLOAD_PATH"/"$tool_name"/* "$install_path"
+		else
+			cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		fi
+		
+		if [ -f "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" ]; then
+			mv "${install_path}/${tool_name}/$(get_release_file_name "${version}" "${tool_name}")" "${install_path}/${tool_name}"
+		fi
 		
 		# if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
     	# 	mv "${install_path}/${tool_name}/$(get_release_file_name "${version}" "${tool_name}")" "$install_path/${tool_cmd}"
@@ -140,6 +148,8 @@ install_version() {
 		if [ "${platform}" == "darwin" ]; then
 			macos_symlink_app "$install_path" "$tool_cmd" "$tool_name"
 			macos_symlink_mono_assemblies "$install_path" "$tool_cmd"
+		elif [ "${platform}" == "linux" ]; then
+
 		fi
 
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
