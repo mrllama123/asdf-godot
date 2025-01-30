@@ -148,10 +148,7 @@ install_version() {
 		if [ "${platform}" == "darwin" ]; then
 			macos_symlink_app "$install_path" "$tool_cmd" "$tool_name"
 			macos_symlink_mono_assemblies "$install_path" "$tool_cmd"
-		elif [ "${platform}" == "linux" ]; then
-
 		fi
-
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
 
 		echo "$tool_name $version installation was successful!"
