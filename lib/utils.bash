@@ -148,8 +148,8 @@ install_version() {
 			macos_symlink_app "$install_path" "$tool_cmd" "$tool_name"
 			macos_symlink_mono_assemblies "$install_path" "$tool_cmd"
 		else
-			bin_file=$(find $install_path n -iname "${tool_name}*")
-			mv $bin_file "${$install_path}/${tool_name}"
+			bin_file=$(find $install_path -iname "${tool_name}*")
+			mv $bin_file "${install_path}/${tool_name}"
 		fi
 
 
