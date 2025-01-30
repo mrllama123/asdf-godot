@@ -129,7 +129,7 @@ install_version() {
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 		
 		if [ -f "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" ]; then
-    		mv "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" "$install_path/${tool_cmd}"F
+    		mv "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" "$install_path/${tool_cmd}"
 		fi
 		local tool_cmd
 		tool_cmd="$(echo "${tool_name} --help" | cut -d' ' -f1)"
