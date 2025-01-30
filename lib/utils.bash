@@ -126,23 +126,20 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
-		if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
-			cp -r "$ASDF_DOWNLOAD_PATH"/"$tool_name"/* "$install_path"
-		else
-			cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
-		fi
-		
-		if [ -f "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" ]; then
-			# NOTE this assumes that there is only one file in install path with redot or godot so could break in future
-			# if file structure changes
-			mv "${install_path}/${tool_name}/$(find $install_path n -iname "${tool_name}*")" "${install_path}/${tool_name}"
-		fi
-		
+		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 		# if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
-    	# 	mv "${install_path}/${tool_name}/$(get_release_file_name "${version}" "${tool_name}")" "$install_path/${tool_cmd}"
-		# 	cp -r "${ASDF_DOWNLOAD_PATH}/${tool_name}/*" "$ASDF_DOWNLOAD_PATH"
-		# 	rm -r "${ASDF_DOWNLOAD_PATH}/${tool_name}" 
+		# 	cp -r "$ASDF_DOWNLOAD_PATH"/"$tool_name"/* "$install_path"
+		# else
+		# 	cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 		# fi
+		
+		# if [ -f "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" ]; then
+		# 	# NOTE this assumes that there is only one file in install path with redot or godot so could break in future
+		# 	# if file structure changes
+		# 	mv "${install_path}/${tool_name}/$(find $install_path n -iname "${tool_name}*")" "${install_path}/${tool_name}"
+		# fi
+		
+
 		local tool_cmd
 		tool_cmd="$(echo "${tool_name} --help" | cut -d' ' -f1)"
 		platform=$(uname | tr '[:upper:]' '[:lower:]')
