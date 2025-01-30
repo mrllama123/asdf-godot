@@ -126,7 +126,13 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		
+		if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
+			cp -r "$ASDF_DOWNLOAD_PATH"/"$tool_name"/* "$install_path"
+		else
+			cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		fi
+		
 
 		local tool_cmd
 		tool_cmd="$(echo "${tool_name} --help" | cut -d' ' -f1)"
@@ -135,7 +141,12 @@ install_version() {
 		if [ "${platform}" == "darwin" ]; then
 			macos_symlink_app "$install_path" "$tool_cmd" "$tool_name"
 			macos_symlink_mono_assemblies "$install_path" "$tool_cmd"
+		else
+			# assumes there is only one binary file
+			bin_file=$(find $install_path -iname "${tool_name}*")
+			mv $bin_file "${install_path}/${tool_name}"
 		fi
+
 
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
 
