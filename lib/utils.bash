@@ -133,12 +133,6 @@ install_version() {
 			cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 		fi
 		
-		# if [ -f "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" ]; then
-		# 	# NOTE this assumes that there is only one file in install path with redot or godot so could break in future
-		# 	# if file structure changes
-		# 	mv "${install_path}/${tool_name}/$(find $install_path n -iname "${tool_name}*")" "${install_path}/${tool_name}"
-		# fi
-		
 
 		local tool_cmd
 		tool_cmd="$(echo "${tool_name} --help" | cut -d' ' -f1)"
@@ -148,6 +142,7 @@ install_version() {
 			macos_symlink_app "$install_path" "$tool_cmd" "$tool_name"
 			macos_symlink_mono_assemblies "$install_path" "$tool_cmd"
 		else
+			# assumes there is only one binary file
 			bin_file=$(find $install_path -iname "${tool_name}*")
 			mv $bin_file "${install_path}/${tool_name}"
 		fi
