@@ -128,11 +128,11 @@ install_version() {
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 		
-		if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
-    		mv "${install_path}/${tool_name}/$(get_release_file_name "${version}" "${tool_name}")" "$install_path/${tool_cmd}"
-			cp -r "${ASDF_DOWNLOAD_PATH}/${tool_name}/*" "$ASDF_DOWNLOAD_PATH"
-			rm -r "${ASDF_DOWNLOAD_PATH}/${tool_name}" 
-		fi
+		# if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
+    	# 	mv "${install_path}/${tool_name}/$(get_release_file_name "${version}" "${tool_name}")" "$install_path/${tool_cmd}"
+		# 	cp -r "${ASDF_DOWNLOAD_PATH}/${tool_name}/*" "$ASDF_DOWNLOAD_PATH"
+		# 	rm -r "${ASDF_DOWNLOAD_PATH}/${tool_name}" 
+		# fi
 		local tool_cmd
 		tool_cmd="$(echo "${tool_name} --help" | cut -d' ' -f1)"
 		platform=$(uname | tr '[:upper:]' '[:lower:]')
