@@ -133,7 +133,9 @@ install_version() {
 		fi
 		
 		if [ -f "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" ]; then
-			mv "${install_path}/${tool_name}/$(get_release_file_name "${version}" "${tool_name}")" "${install_path}/${tool_name}"
+			# NOTE this assumes that there is only one file in install path with redot or godot so could break in future
+			# if file structure changes
+			mv "${install_path}/${tool_name}/$(find $install_path n -iname "${tool_name}*")" "${install_path}/${tool_name}"
 		fi
 		
 		# if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
