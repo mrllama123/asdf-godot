@@ -126,12 +126,12 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
-		# if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
-		# 	cp -r "$ASDF_DOWNLOAD_PATH"/"$tool_name"/* "$install_path"
-		# else
-		# 	cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
-		# fi
+		
+		if [ -d "${ASDF_DOWNLOAD_PATH}/${tool_name}" ]; then
+			cp -r "$ASDF_DOWNLOAD_PATH"/"$tool_name"/* "$install_path"
+		else
+			cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		fi
 		
 		# if [ -f "${install_path}/$(get_release_file_name "${version}" "${tool_name}")" ]; then
 		# 	# NOTE this assumes that there is only one file in install path with redot or godot so could break in future
