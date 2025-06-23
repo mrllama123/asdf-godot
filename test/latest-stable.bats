@@ -7,19 +7,19 @@ setup() {
     ASDF_TMPDIR="$(TMPDIR="${BATS_RUN_TMPDIR}" mktemp -t "test-${BATS_SUITE_TEST_NUMBER}.XXXXXXXXX" -d)"
     ASDF_DATA_DIR="$(bats_readlinkf "${ASDF_TMPDIR}")"
     export ASDF_DATA_DIR
-    asdf plugin-add godot "${ASDF_GODOT}"
-    asdf plugin-add redot "${ASDF_GODOT}"
+    asdf plugin add godot "${ASDF_GODOT}"
+    asdf plugin add redot "${ASDF_GODOT}"
 }
 
 @test "latest stable godot" {
-    run asdf list-all godot
+    run asdf latest godot
     [ "$status" -eq 0 ]
     # match format <version i.e 4.3 or 4.2.2>-<type of release i.e stable, dev>
     [[ "$output" =~ [0-9]\.[0-9](\.[0-9])?\-[a-zA-Z]+ ]]
 }
 
 @test "latest stable redot" {
-    run asdf list-all redot
+    run asdf latest redot
     [ "$status" -eq 0 ]
     # match format <godot or redot>-<version i.e 4.3 or 4.2.2>-<type of release i.e stable, dev>
     [[ "$output" =~ (godot|redot)+\-[0-9]\.[0-9](\.[0-9])?\-[a-zA-Z]+ ]]
