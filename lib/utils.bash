@@ -12,24 +12,6 @@ if [ -n "${GITHUB_API_TOKEN:-}" ]; then
 	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
 fi
 
-get_redot_release_name() {
-	local version=$1
-	local platform=$2
-	local arch=$3
-	local mono=$4
-
-	redot_version=$(echo "$version" | sed 's/redot-\(.*\)/\1/')
-	if [ "${platform}" == 'darwin' ]; then
-		if [ "${redot_version}" == "4.3.0-stable" ]; then
-			echo "Redot_v${redot_version}_${mono}macos"
-			exit 0
-		fi
-		# after v4.3.0 the mac filename changes 
-		echo "Redot_v${redot_version}_macos.universal.zip"
-		exit 0
-	fi
-	echo "Redot_v${version}_${mono}${platform}.${arch}"
-}
 
 get_release_file_name() {
 	local version="$1"
