@@ -39,7 +39,7 @@ get_release_file_name() {
 	
 	if [ "${platform}" == 'darwin' ]; then
 		# redot 4.3.0 has different zip filename for some reason
-		if [ "${version}" == "4.3-stable" ]; then
+		if [ "${formatted_version}" == "4.3-stable" ] && [ "$tool_name" == "redot"  ]; then
 			echo "${prefix}_v${formatted_version}_macos"
 			exit 0
 		fi
