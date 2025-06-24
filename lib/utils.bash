@@ -20,31 +20,34 @@ get_release_file_name() {
 	platform=$(uname | tr '[:upper:]' '[:lower:]')
 	arch=$(uname -m)
 	suffix=
+	prefix=
+	formatted_version=
 	if [[ "$ASDF_GODOT_INSTALL_MONO" != "0" ]]; then
 		suffix="mono_${platform}_${arch}"
 	else
 		suffix="${platform}.${arch}"
 	fi
 
-
 	if [ "$tool_name" == "redot" ]; then
-		redot_version=$(echo "$version" | sed 's/redot-\(.*\)/\1/')
-		if [ "${platform}" == 'darwin' ]; then
-			echo "Redot_v${redot_version}_${mono}macos"
+		prefix="Redot"
+		formatted_version=$(echo "$version" | sed 's/redot-\(.*\)/\1/')
+	else
+		prefix="Godot"
+		formatted_version=$(echo "$version")
+	fi
+
+	
+	if [ "${platform}" == 'darwin' ]; then
+		# redot 4.3.0 has different zip filename for some reason
+		if [ "${formatted_version}" == "4.3-stable" ] && [ "$tool_name" == "redot"  ]; then
+			echo "${prefix}_v${formatted_version}_macos"
 			exit 0
 		fi
-		echo "Redot_v${redot_version}_${suffix}"
-
+		echo "${prefix}_v${formatted_version}_macos.universal"
 		exit 0
 	fi
 
-
-	if [ "${platform}" == 'darwin' ]; then
-		echo "Godot_v${version}_${mono}macos.universal"
-		exit 0
-	fi
-
-	echo "Godot_v${version}_${suffix}"
+	echo "${prefix}_v${formatted_version}_${suffix}"
 	
 }
 
