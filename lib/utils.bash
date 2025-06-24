@@ -20,7 +20,7 @@ get_redot_release_name() {
 
 	redot_version=$(echo "$version" | sed 's/redot-\(.*\)/\1/')
 	if [ "${platform}" == 'darwin' ]; then
-		if [ "${redot_version}" == "4.3.0-stable" ]
+		if [ "${redot_version}" == "4.3.0-stable" ]; then
 			echo "Redot_v${redot_version}_${mono}macos"
 			exit 0
 		fi
