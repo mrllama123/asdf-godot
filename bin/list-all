@@ -4,14 +4,14 @@ set -euo pipefail
 
 current_script_path=${BASH_SOURCE[0]}
 plugin_dir=$(dirname "$(dirname "$current_script_path")")
-toolname="$(basename $plugin_dir)"
+toolname="$(basename "$plugin_dir" | sed -E 's/^asdf-test-//')"
 
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
 
 repo_name=
-if [ "$toolname" == "redot" ]; then
+if [[ "$toolname" =~ "redot" ]]; then
     repo_name=$GH_REPO_REDOT
 else
     repo_name=$GH_REPO_GODOT
